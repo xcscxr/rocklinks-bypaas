@@ -18,7 +18,7 @@ def bypass(url):
 		
 		
 	headers = {
-	       "referer":final_url,
+	           "referer":final_url,
 		   "origin":"https://link.techyone.co",
 		   "x-requested-with": "XMLHttpRequest",
 		   "user-agent":"Mozilla/5.0 (Linux; Android 11; SM-T515) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.13 Safari/537.36"
