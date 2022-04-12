@@ -1,38 +1,33 @@
-from bs4 import BeautifulSoup 
-import requests
 import time
+import requests
+from bs4 import BeautifulSoup 
 
+url = "https://rocklinks.net/XgQox/"
 
-def bypass(url):
-	code = url.split("/")[-1]
-	final_url = "https://link.techyone.co/" + code + "?quelle="
+# -----------------------------------
 
-	client = requests.Session()
-	resp = client.get(final_url).text
-	
-	soup = BeautifulSoup(resp, "html.parser")
-	params_value = soup.find(id="go-link").find_all(name="input")
-	data = {}
-	for payload in params_value:
-		data[payload.get("name")] = payload.get("value") 
-		
-		
-	headers = {
-	           "referer":final_url,
-		   "origin":"https://link.techyone.co",
-		   "x-requested-with": "XMLHttpRequest",
-		   "user-agent":"Mozilla/5.0 (Linux; Android 11; SM-T515) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.13 Safari/537.36"
-	}
-	
-	time.sleep(10)
-	r = client.post("https://link.techyone.co/links/go",data=data, headers=headers)
-	print(r.text)
-	
-	
-bypass("https://rocklinks.net/XgQox")	
+def rocklinks_bypass(url):
+    client = requests.Session()
+    DOMAIN = "https://link.techyone.co"
+    url = url[:-1] if url[-1] == '/' else url
 
+    code = url.split("/")[-1]
+    final_url = f"{DOMAIN}/{code}?quelle="
 
+    resp = client.get(final_url)
+    
+    soup = BeautifulSoup(resp.content, "html.parser")
+    inputs = soup.find(id="go-link").find_all(name="input")
+    data = { input.get('name'): input.get('value') for input in inputs }
 
+    h = { "x-requested-with": "XMLHttpRequest" }
+    
+    time.sleep(6)
+    r = client.post(f"{DOMAIN}/links/go", data=data, headers=h)
+    try:
+        return r.json()['url']
+    except: return "Something went wrong :("
 
+# -----------------------------------
 
-
+print(rocklinks_bypass(url))
