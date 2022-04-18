@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 url = "https://rocklinks.net/XgQox/"
 
-# -----------------------------------
+# ---------------------------------------------------------------------------------------------------------------------
 
 def rocklinks_bypass(url):
     client = cloudscraper.create_scraper(allow_brotli=False)
@@ -15,12 +15,11 @@ def rocklinks_bypass(url):
     final_url = f"{DOMAIN}/{code}?quelle="
 
     resp = client.get(final_url)
-    
     soup = BeautifulSoup(resp.content, "html.parser")
-    try:
-        inputs = soup.find(id="go-link").find_all(name="input")
-    except:
-        return "Incorrect Link"
+    
+    try: inputs = soup.find(id="go-link").find_all(name="input")
+    except: return "Incorrect Link"
+    
     data = { input.get('name'): input.get('value') for input in inputs }
 
     h = { "x-requested-with": "XMLHttpRequest" }
@@ -31,6 +30,6 @@ def rocklinks_bypass(url):
         return r.json()['url']
     except: return "Something went wrong :("
 
-# -----------------------------------
+# ---------------------------------------------------------------------------------------------------------------------
 
 print(rocklinks_bypass(url))
