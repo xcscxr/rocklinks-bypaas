@@ -25,7 +25,7 @@ def rocklinks_bypass(url):
 
     h = { "x-requested-with": "XMLHttpRequest" }
     
-    time.sleep(4)
+    time.sleep(5)
     r = client.post(f"{DOMAIN}/links/go", data=data, headers=h)
     try:
         return r.json()['url']
