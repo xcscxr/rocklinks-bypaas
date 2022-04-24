@@ -2,18 +2,18 @@ import time
 import cloudscraper
 from bs4 import BeautifulSoup 
 
-url = "https://rocklinks.net/XgQox/"
+url = "http://url.rocklink.in/rCEd"
 
 # ---------------------------------------------------------------------------------------------------------------------
 
 def rocklinks_bypass(url):
     client = cloudscraper.create_scraper(allow_brotli=False)
-    DOMAIN = "https://pastebin.techymedies.com"
+    DOMAIN = "https://rocklink.in"
     
     url = url[:-1] if url[-1] == '/' else url
 
     code = url.split("/")[-1]
-    final_url = f"{DOMAIN}/{code}?quelle="
+    final_url = f"{DOMAIN}/{code}"
 
     resp = client.get(final_url)
     soup = BeautifulSoup(resp.content, "html.parser")
@@ -25,7 +25,7 @@ def rocklinks_bypass(url):
 
     h = { "x-requested-with": "XMLHttpRequest" }
     
-    time.sleep(6)
+    time.sleep(4)
     r = client.post(f"{DOMAIN}/links/go", data=data, headers=h)
     try:
         return r.json()['url']
