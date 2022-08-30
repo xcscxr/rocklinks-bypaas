@@ -2,16 +2,16 @@ import time
 import cloudscraper
 from bs4 import BeautifulSoup 
 
-url = "" # Paste your Rocklink URL here
+url = "https://rocklinks.net/A8PQreui" # Paste your Rocklink URL here
 
 # ---------------------------------------------------------------------------------------------------------------------
 
 def rocklinks_bypass(url):
     client = cloudscraper.create_scraper(allow_brotli=False)
     if 'rocklinks.net' in url:
-        DOMAIN = "https://links.spidermods.in"
+        DOMAIN = "https://blog.disheye.com"
     else:
-        DOMAIN = "https://rocklink.in"
+        DOMAIN = "https://rocklinks.net"
 
     url = url[:-1] if url[-1] == '/' else url
 
