@@ -9,7 +9,7 @@ url = "https://rocklinks.net/A8PQreui" # Paste your Rocklink URL here
 def rocklinks_bypass(url):
     client = cloudscraper.create_scraper(allow_brotli=False)
     if 'rocklinks.net' in url:
-        DOMAIN = "https://blog.disheye.com"
+        DOMAIN = "https://rl.techysuccess.com"
     else:
         DOMAIN = "https://rocklinks.net"
 
@@ -20,8 +20,11 @@ def rocklinks_bypass(url):
         final_url = f"{DOMAIN}/{code}?quelle=" 
     else:
         final_url = f"{DOMAIN}/{code}"
+    ref = "https://disheye.com/"
+    
+    h = {"referer": ref}
 
-    resp = client.get(final_url)
+    resp = client.get(final_url,headers=h)
     soup = BeautifulSoup(resp.content, "html.parser")
     
     try: inputs = soup.find(id="go-link").find_all(name="input")
